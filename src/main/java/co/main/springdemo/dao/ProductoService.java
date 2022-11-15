@@ -3,6 +3,7 @@ package co.main.springdemo.dao;
 import co.main.springdemo.modelo.Producto;
 import co.main.springdemo.repositorio.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,5 +37,46 @@ public class ProductoService {
         }
         return  productoNuevo;
     }
+
+    public void eliminar(Long id){
+        try {
+            productoRepository.deleteById(id);
+
+        }catch (Exception exception){
+
+            System.out.println(exception.getMessage());
+        }
+
+    }
+
+    public Producto buscarId(Long id){
+        Producto productoBuscado = new Producto();
+        try {
+            productoBuscado = productoRepository.findById(id).get();
+
+        }catch (Exception exception){
+
+            System.out.println(exception.getMessage());
+        }
+
+        return  productoBuscado;
+
+    }
+
+    public List<Producto> buscarProducto(String nombre){
+        List<Producto> productosEnc = new ArrayList<>();
+
+        try {
+            productosEnc = productoRepository.buscarProductos("%"+nombre+"%");
+
+        }catch (Exception exception){
+
+            System.out.println(exception.getMessage());
+        }
+
+        return  productosEnc;
+
+    }
+
 
 }

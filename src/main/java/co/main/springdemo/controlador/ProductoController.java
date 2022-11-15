@@ -8,10 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/producto",method = RequestMethod.GET)
+@RequestMapping(value = "api/producto",method = RequestMethod.GET)
 public class ProductoController {
     @Autowired
     private ProductoService dao;
@@ -21,6 +22,16 @@ public class ProductoController {
          return new ResponseEntity<>(productos, HttpStatus.ACCEPTED);
 
      }
+
+     @GetMapping("/buscar/{nombre}")
+     public ResponseEntity<List<Producto>> buscarProducto(@PathVariable(name = "nombre") String nombre){
+         List<Producto> productos = new ArrayList<>();
+
+          productos = dao.buscarProducto(nombre);
+
+         return new ResponseEntity<>(productos,HttpStatus.OK);
+     }
+
 
      @PostMapping("/guardar")
 

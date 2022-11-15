@@ -19,6 +19,11 @@ public class Producto {
     private double valor;
     private Integer cantidad;
 
+    @Column(name = "DESCRIPCION")
+    private  String descripcion;
+    @Column(name = "URL_IMAGEN")
+    private String  urlImagen;
+
 
 
     @JsonIgnoreProperties("productos")
@@ -93,7 +98,21 @@ public class Producto {
         this.categoria = categoria;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
 
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
 
     @Override
     public String toString() {
@@ -105,6 +124,8 @@ public class Producto {
                 ", modelo='" + modelo + '\'' +
                 ", valor=" + valor +
                 ", cantidad=" + cantidad +
+                ", descripcion='" + descripcion + '\'' +
+                ", urlImagen='" + urlImagen + '\'' +
                 ", categoria=" + categoria +
                 '}';
     }
