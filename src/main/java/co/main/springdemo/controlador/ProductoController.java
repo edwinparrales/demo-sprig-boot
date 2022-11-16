@@ -12,40 +12,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/producto",method = RequestMethod.GET)
+@RequestMapping(value = "api/producto", method = RequestMethod.GET)
 public class ProductoController {
     @Autowired
     private ProductoService dao;
-     @GetMapping("/listar")
-     public ResponseEntity<List<Producto>> listar(){
-         List<Producto> productos = dao.listarTodos();
-         return new ResponseEntity<>(productos, HttpStatus.ACCEPTED);
 
-     }
+    @GetMapping("/listar")
+    public ResponseEntity<List<Producto>> listar() {
+        List<Producto> productos = dao.listarTodos();
+        return new ResponseEntity<>(productos, HttpStatus.ACCEPTED);
 
-     @GetMapping("/buscar/{nombre}")
-     public ResponseEntity<List<Producto>> buscarProducto(@PathVariable(name = "nombre") String nombre){
-         List<Producto> productos = new ArrayList<>();
+    }
 
-          productos = dao.buscarProducto(nombre);
+    @GetMapping("/buscar/{nombre}")
+    public ResponseEntity<List<Producto>> buscarProducto(@PathVariable(name = "nombre") String nombre) {
+        List<Producto> productos = new ArrayList<>();
 
-         return new ResponseEntity<>(productos,HttpStatus.OK);
-     }
+        productos = dao.buscarProducto(nombre);
 
-
-     @PostMapping("/guardar")
-
-    public ResponseEntity<Producto> guardar( @RequestBody Producto producto){
-         Producto producto1 = dao.guardar(producto);
-         return new ResponseEntity<>(producto1,HttpStatus.ACCEPTED);
-     }
+        return new ResponseEntity<>(productos, HttpStatus.OK);
+    }
 
 
+    @PostMapping("/guardar")
 
+    public ResponseEntity<Producto> guardar(@RequestBody Producto producto) {
+        Producto producto1 = dao.guardar(producto);
+        return new ResponseEntity<>(producto1, HttpStatus.ACCEPTED);
+    }
 
+    @DeleteMapping("/eliminar/{id}")
 
+    public ResponseEntity eliminar(@PathVariable Long id) {
 
-
+        dao.eliminar(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 
 }
