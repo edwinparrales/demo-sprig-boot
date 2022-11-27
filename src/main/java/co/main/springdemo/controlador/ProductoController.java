@@ -4,9 +4,11 @@ import co.main.springdemo.dao.CategoriaService;
 import co.main.springdemo.dao.ProductoService;
 import co.main.springdemo.modelo.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.function.ServerRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +66,16 @@ public class ProductoController {
         Producto producto = dao.findProductoByCodigo(codigo);
 
         return new ResponseEntity<>(producto,HttpStatus.OK);
+    }
+
+    //Actualizar un registro
+
+    @PutMapping("/actualizar")
+    public ResponseEntity<Producto> actualizar(@RequestBody Producto producto) {
+        Producto productoAct = dao.guardar(producto);
+        HttpHeaders cabecera = new HttpHeaders();
+        cabecera.add("mensaje", "Producto acutalizado");
+        return new ResponseEntity<>(productoAct,cabecera, HttpStatus.CREATED);
     }
 
 
